@@ -6,12 +6,16 @@ LSTM model is a type of recurrent neural network capable of learning order depen
 
 Human Activity Recognition dataset can be downloaded from the link given below: HAR dataset
 
-Activities:
+## Activities:
 
 Walking
+
 Upstairs
+
 Downstairs
+
 Sitting
+
 Standing
 
 
@@ -22,9 +26,61 @@ Dataset cleaning and data Preprocessing
 Choosing a model and building deep learned network model
 
 
-## Phase 3:
+## Data PreProcessing:
 It begins with the data pre-processing. It is the phase where ~90% of time is consumed in actual data science projects. Here, raw data is taken and converted in some useful and efficient formats.
 
+ ## Model building
+
+     start = time.time()
+      model = LogisticRegression(C=0.1)
+      print(model)
+      model.fit(trainData,trainLabelE)
+      LogisticReg_Score=model.score(testData,testLabelE)
+      print(LogisticReg_Score)  # 0.95
+      end = time.time()
+      total_time =end-start
+      print('Time of Logistic Regression %.4f' % total_time)
+      
+   ## Performing several iterations of model training to get the highest accuracy and reduced loss
+    mlpSGD  =  nn.MLPClassifier(hidden_layer_sizes=(90,) \
+                        , max_iter=1000, alpha=1e-4  \
+                        , solver='sgd' ,verbose=10   \
+                        , tol=1e-19    , random_state =1 \
+                        , learning_rate_init=.001)
+
+     mlpADAM  =  nn.MLPClassifier(hidden_layer_sizes=(90,) \
+                        , max_iter=1000, alpha=1e-4  \
+                        , solver='adam' ,verbose=10   \
+                        , tol=1e-19    , random_state =1 \
+                        , learning_rate_init=.001)
+
+     nnModelADAM = mlpADAM.fit(Scaled_trainData, trainLabelE)
+
+     predicted = nnModelADAM.predict(Scaled_testData)
+     matrix = confusion_matrix(testLabelE, predicted)
+     print(matrix)
+     print(nnModelADAM.score(Scaled_testData,testLabelE))
+     
+   # Keras Neural Network
+    def create_model():
+    model = Sequential()
+    model.add(Dense(n_hidden_units,input_dim=n_input,activation="relu"))
+    model.add(Dense(n_hidden_units,input_dim=n_input,activation="relu"))
+    model.add(Dense(n_output,activation="softmax"))
+    # Compile Model
+    model.compile(loss="categorical_crossentropy",optimizer="adam",metrics=['accuracy'])
+    return model
+
+    estimator = KerasClassifier(build_fn=create_model, epochs=20, batch_size=10, verbose=False)
+    estimator.fit(Scaled_trainData,Y_train)
+    print("Keras Classifier Score:{}".format(estimator.score(Scaled_testData,Y_test))) # 0.95
+    
+   ###### Result 
+     Keras Classifier Score:0.966406524181366
+ 
+      
+  ## DecisionTree Confusuion Matrix
+   ![image](https://user-images.githubusercontent.com/49801313/119567428-f0258900-bdc9-11eb-8ed9-2d9cd5b1a256.png)
 
 ## Installation Instructions
 
