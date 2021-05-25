@@ -4,7 +4,7 @@ Human activity recognition using smartphone sensors like accelerometer is one of
 
 LSTM model is a type of recurrent neural network capable of learning order dependence in sequence prediction problems. This model is used as this helps in remembering values over arbitrary intervals.
 
-Human Activity Recognition dataset can be downloaded from the link given below: HAR dataset
+Human Activity Recognition dataset can be downloaded from the repo itself.
 
 ## Activities:
 
